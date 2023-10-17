@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/Broker_Project",
+  base: "/RMS",
   plugins: [vue()],
   resolve: {
     alias: {
