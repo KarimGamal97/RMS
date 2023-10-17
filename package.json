@@ -26,6 +26,7 @@
     "portal-vue": "^2.1.7",
     "sweetalert2": "^11.6.13",
     "vue": "^3.3.4",
+    "vue-axios": "^3.5.2",
     "vue-good-links": "^0.0.3",
     "vue-good-table-next": "^0.2.1",
     "vue-multiselect": "^2.1.7",

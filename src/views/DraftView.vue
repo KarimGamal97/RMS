@@ -1,10 +1,9 @@
 <template>
-  <!-- Start Add Modal -->
   <teleport to="body">
     <b-modal
       v-model="showModal"
       ref="modal"
-      title="Add Your New Draft !"
+      title="Add Draft"
       @show="resetModal"
       @hidden="resetModal"
       hide-footer
@@ -23,6 +22,7 @@
             :state="nameState"
             required
           ></b-form-input>
+          <p v-if="nameErrorMsg" class="error mt-2">{{ nameErrorMsg }}</p>
         </b-form-group>
         <!-- Name Input -->
         <!-- Phone Input -->
@@ -38,6 +38,7 @@
             :state="nameState"
             type="number"
           ></b-form-input>
+          <p v-if="phoneErrorMsg" class="error mt-2">{{ phoneErrorMsg }}</p>
         </b-form-group>
         <!-- Phone Input -->
         <!-- Order Input -->
@@ -47,11 +48,14 @@
           invalid-feedback="Client Order is required"
           :state="nameState"
         >
-          <b-form-input
-            id="phone-input"
+          <b-form-textarea
+            rows="3"
+            no-resize
+            id="order-input"
             v-model="formData.order"
             :state="nameState"
-          ></b-form-input>
+          ></b-form-textarea>
+          <p v-if="orderErrorMsg" class="error mt-2">{{ orderErrorMsg }}</p>
         </b-form-group>
         <!-- Order Input -->
         <!-- Price Input -->
@@ -67,6 +71,7 @@
             :state="nameState"
             type="number"
           ></b-form-input>
+          <p v-if="priceErrorMsg" class="error mt-2">{{ priceErrorMsg }}</p>
         </b-form-group>
         <!-- Price Input -->
         <!-- Type SelectBox -->
@@ -81,19 +86,30 @@
               {{ type.name }}
             </option>
           </b-form-select>
+          <p v-if="typeErrorMsg" class="error mt-2">{{ typeErrorMsg }}</p>
         </b-form-group>
-        <!-- Type SelectBox -->
+
         <b-button
           variant="outline-success"
           type="submit"
           class="m-auto d-block mt-4"
+          :disabled="dis"
           >Add</b-button
         >
+        <div id="loaders4" v-if="loadingFormAdd">
+          <div id="Loading">
+            <div class="text-center">
+              <div class="rms-ripple">
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </form>
     </b-modal>
   </teleport>
-  <!-- End Add Modal -->
-  <!-- Start Table -->
+
   <div class="draft container mt-5">
     <div class="card custom-card">
       <div
@@ -163,8 +179,7 @@
       </div>
     </div>
   </div>
-  <!-- End Table -->
-  <!-- Start Edit Modal -->
+
   <teleport to="body">
     <b-modal
       v-model="editModal"
@@ -180,6 +195,7 @@
             v-model="updatedData.name"
             :state="nameState"
           ></b-form-input>
+          <p v-if="unameErrorMsg" class="error mt-2">{{ unameErrorMsg }}</p>
         </b-form-group>
         <!-- Name Input -->
         <!-- Phone Input -->
@@ -193,6 +209,7 @@
             v-model="updatedData.phone"
             :state="nameState"
           ></b-form-input>
+          <p v-if="uphoneErrorMsg" class="error mt-2">{{ uphoneErrorMsg }}</p>
         </b-form-group>
         <!-- Phone Input -->
         <!-- Order Input -->
@@ -201,11 +218,14 @@
           label-for="order-input"
           :state="nameState"
         >
-          <b-form-input
+          <b-form-textarea
+            rows="3"
+            no-resize
             id="phone-input"
             v-model="updatedData.order"
             :state="nameState"
-          ></b-form-input>
+          ></b-form-textarea>
+          <p v-if="orderErrorMsg" class="error mt-2">{{ orderErrorMsg }}</p>
         </b-form-group>
         <!-- Order Input -->
         <!-- Price Input -->
@@ -215,6 +235,7 @@
             v-model="updatedData.price"
             :state="nameState"
           ></b-form-input>
+          <p v-if="uorderErrorMsg" class="error mt-2">{{ uorderErrorMsg }}</p>
         </b-form-group>
         <!-- Price Input -->
         <!-- Type SelectBox -->
@@ -235,12 +256,22 @@
           variant="outline-success"
           type="submit"
           class="m-auto d-block mt-4"
+          :disabled="diss"
           >Update</b-button
         >
+        <div id="loaders4" v-if="loadingFormEdit">
+          <div id="Loading">
+            <div class="text-center">
+              <div class="rms-ripple">
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </form>
     </b-modal>
   </teleport>
-  <!-- End Edit Modal -->
 </template>
 
 <script>
@@ -249,9 +280,6 @@ import { useToast } from "vue-toastification";
 import http from "../http";
 export default {
   name: "my-component",
-  // Print
-
-  // Toast
   setup() {
     const toast = useToast();
     return { toast };
@@ -301,18 +329,159 @@ export default {
         type: null,
       },
       types: [],
+      loadingFormAdd: false,
+      loadingFormEdit: false,
       id: null,
       nameState: null,
       showModal: false,
       editModal: false,
-      // nameErrorMsg: "",
-      // phoneErrorMsg: "",
-      // orderErrorMsg: "",
-      // priceErrorMsg: "",
-      // typeErrorMsg: "",
+      nameErrorMsg: "",
+      phoneErrorMsg: "",
+      orderErrorMsg: "",
+      priceErrorMsg: "",
+      typeErrorMsg: "",
+      unameErrorMsg: "",
+      uphoneErrorMsg: "",
+      uorderErrorMsg: "",
+      upriceErrorMsg: "",
+      utypeErrorMsg: "",
       tableAnimate: false,
       tableSkelton: true,
     };
+  },
+  computed: {
+    dis() {
+      const { name, phone, order, price, type } = this.formData;
+
+      if (
+        name.length < 3 ||
+        name.length > 15 ||
+        order.length < 3 ||
+        order.length > 265 ||
+        phone.length < 7 ||
+        phone.length > 15 ||
+        (phone && isNaN(phone)) ||
+        isNaN(Number(price)) ||
+        price < 1 ||
+        price > 999999 ||
+        order.length < 3 ||
+        order.length > 265 ||
+        !type
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    diss() {
+      const { name, phone, order, price, type } = this.updatedData;
+
+      if (
+        name.length < 3 ||
+        name.length > 15 ||
+        order.length < 3 ||
+        order.length > 265 ||
+        phone.length < 7 ||
+        phone.length > 15 ||
+        (phone && isNaN(phone)) ||
+        isNaN(Number(price)) ||
+        price < 1 ||
+        price > 999999 ||
+        order.length < 3 ||
+        order.length > 265 ||
+        !type
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+  },
+  watch: {
+    "formData.name"(v) {
+      if (v.length < 3 || v.length > 15) {
+        this.nameErrorMsg = "Name must be between 3 and 15 characters";
+      } else if (/\d/.test(v)) {
+        this.nameErrorMsg = "Name must not contain numbers";
+      } else {
+        this.nameErrorMsg = "";
+      }
+    },
+    "formData.phone"(v) {
+      if (v.length < 7 || v.length > 15) {
+        this.phoneErrorMsg = "Type a valid order between 7 and 15 characters";
+      } else {
+        this.phoneErrorMsg = "";
+      }
+    },
+    "formData.order"(v) {
+      if (v.length < 3 || v.length > 100) {
+        this.orderErrorMsg = "Type a valid order between 3 and 100 characters";
+      } else {
+        this.orderErrorMsg = "";
+      }
+    },
+    "formData.price"(v) {
+      if (isNaN(v)) {
+        this.priceErrorMsg = "Price a valid price";
+      } else if (v > 999999 || v < 0) {
+        this.priceErrorMsg =
+          "Price can't be more than 6 digits and a positive value";
+      } else if (!/\d/.test(v)) {
+        this.priceErrorMsg = "Price must contain at least one number";
+      } else {
+        this.priceErrorMsg = "";
+      }
+    },
+    "formData.type"(v) {
+      if (!v) {
+        this.typeErrorMsg = "Please choose at least one item";
+      } else {
+        this.typeErrorMsg = "";
+      }
+    },
+    "updatedData.name"(v) {
+      if (v.length < 3 || v.length > 15) {
+        this.nameErrorMsg = "Name must be between 3 and 15 characters";
+      } else if (/\d/.test(v)) {
+        this.nameErrorMsg = "Name must not contain numbers";
+      } else {
+        this.nameErrorMsg = "";
+      }
+    },
+    "updatedData.phone"(v) {
+      if (v.length < 7 || v.length > 15) {
+        this.phoneErrorMsg = "Type a valid order between 7 and 15 characters";
+      } else {
+        this.phoneErrorMsg = "";
+      }
+    },
+    "updatedData.order"(v) {
+      if (v.length < 3 || v.length > 100) {
+        this.orderErrorMsg = "Type a valid order between 3 and 100 characters";
+      } else {
+        this.orderErrorMsg = "";
+      }
+    },
+    "updatedData.price"(v) {
+      if (isNaN(v)) {
+        this.priceErrorMsg = "Price a valid price";
+      } else if (v > 999999 || v < 0) {
+        this.priceErrorMsg =
+          "Price can't be more than 6 digits and a positive value";
+      } else if (!/\d/.test(v)) {
+        this.priceErrorMsg = "Price must contain at least one number";
+      } else {
+        this.priceErrorMsg = "";
+      }
+    },
+    "updatedData.type"(v) {
+      if (!v) {
+        this.typeErrorMsg = "Please choose at least one item";
+      } else {
+        this.typeErrorMsg = "";
+      }
+    },
   },
   methods: {
     resetModal() {
@@ -322,6 +491,13 @@ export default {
       this.formData.price = "";
       this.formData.type = null;
       this.nameState = null;
+      const errorElements = document.querySelectorAll(".error");
+
+      if (errorElements.length) {
+        errorElements.forEach((element) => {
+          element.style.display = "none";
+        });
+      }
     },
     async getData() {
       await http
@@ -339,36 +515,33 @@ export default {
       });
     },
     async deleteRow(id, index) {
-      await http
-        .delete(`https://apis-03au.onrender.com/api/drafts/${id}`)
-        .then((res) => {
-          if (res) {
-            Swal.fire({
-              title: "Are you sure?",
-              text: "You won't be able to revert this!",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Yes, delete it!",
-            }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.fire("Deleted!", "Your file has been deleted.", "success");
-                this.rows.splice(index, 1);
-              }
-            });
-          }
-        });
+      await http.delete(`drafts/${id}`).then((res) => {
+        if (res) {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              this.rows.splice(index, 1);
+            }
+          });
+        }
+      });
     },
     async addData() {
-      await http
-        .post("https://apis-03au.onrender.com/api/drafts", this.formData)
-        .then((res) => {
-          this.rows.push(res.data.data);
-          this.formData = {};
-          this.showModal = false;
-          this.toast.success("Your draft added successfully");
-        });
+      this.loadingFormAdd = true;
+      await http.post("drafts", this.formData).then((res) => {
+        this.rows.push(res.data.data);
+        this.showModal = false;
+        this.loadingFormAdd = false;
+        this.toast.success("Added successfully");
+      });
     },
     async editRow(data) {
       this.editModal = true;
@@ -380,12 +553,11 @@ export default {
       this.id = data._id;
     },
     async updateRow() {
-      await http.patch(
-        `https://apis-03au.onrender.com/api/drafts/${this.id}`,
-        this.updatedData
-      );
+      this.loadingFormEdit = true;
+      await http.patch(`drafts/${this.id}`, this.updatedData);
       this.getData();
       this.editModal = false;
+      this.loadingFormEdit = false;
       this.toast.success("Updated Successfully", {
         position: "top-right",
         timeout: 5000,
@@ -399,67 +571,6 @@ export default {
     this.getData();
     this.getType();
   },
-  // watch: {
-  //   "formData.name"(v) {
-  //     if (v.length < 3 || v.length > 15) {
-  //       this.nameErrorMsg = "Name must be between 3 and 15 characters";
-  //     } else if (/\d/.test(v)) {
-  //       this.nameErrorMsg = "Name must not contain numbers";
-  //     } else {
-  //       this.nameErrorMsg = "";
-  //     }
-  //   },
-  //   "formData.phone"(v) {
-  //     if (v.length != 11) {
-  //       this.phoneErrorMsg = "Type a valid number with (11) numbers only";
-  //     } else {
-  //       this.phoneErrorMsg = "";
-  //     }
-  //   },
-  //   "formData.order"(v) {
-  //     if (v.length < 3 || v.length > 100) {
-  //       this.orderErrorMsg = "Type a valid order between 3 and 100 characters";
-  //     } else {
-  //       this.orderErrorMsg = "";
-  //     }
-  //   },
-  //   "formData.price"(v) {
-  //     if (isNaN(v)) {
-  //       this.priceErrorMsg = "Type a valid price";
-  //     } else if (v >= 9.999e8 || v < 0) {
-  //       this.priceErrorMsg =
-  //         "Price can't be more than 7 digits and a positive value";
-  //     } else if (!/\d/.test(v)) {
-  //       this.priceErrorMsg = "Price must contain at least one number";
-  //     } else {
-  //       this.priceErrorMsg = "";
-  //     }
-  //   },
-  //   "formData.type"(v) {
-  //     if (!v) {
-  //       this.typeErrorMsg = "Please choose at least one item";
-  //     } else {
-  //       this.typeErrorMsg = "";
-  //     }
-  //   },
-  // },
-  // computed: {
-  //   disBtn() {
-  //     const { name, phone, order, price, type } = this.formData;
-  //     if (
-  //       name.length < 3 ||
-  //       name.length > 15 ||
-  //       !type ||
-  //       order.length < 3 ||
-  //       order.length > 100 ||
-  //       isNaN(Number(phone)) ||
-  //       isNaN(Number(price))
-  //     ) {
-  //       return true;
-  //     }
-  //     return false;
-  //   },
-  // },
 };
 </script>
 
@@ -468,12 +579,14 @@ export default {
   color: #c0392b;
   font-size: 14px;
 }
+
 .draft-heading {
   background-color: #eee;
   padding: 15px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
+
 @media print {
   .vgt-wrap__footer,
   .vgt-global-search {
