@@ -1,0 +1,17 @@
+@import "./base.css";
+
+/* Start SideBar */
+.sidebar .nav-list {
+  margin-left: -31px;
+}
+/* .sidebar.open{
+  direction: rtl;
+} */
+
+/* End SideBar */
+
+.custom-card-header {
+  background-color: #f1f1f1;
+  display: flex;
+  justify-content: space-between;
+}
