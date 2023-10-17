@@ -3,7 +3,7 @@ import { useToast } from "vue-toastification";
 const toast = useToast();
 
 const instance = axios.create({
-  baseURL: "http://localhost:2000/api/",
+  baseURL: "https://apis-03au.onrender.com/api/",
   headers: {
     "Content-Type": "application/json",
   },
