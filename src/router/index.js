@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import WorkView from "../views/WorkView.vue";
 import DraftView from "../views/DraftView.vue";
+import ReportView from "../views/ReportView.vue" 
 import NotfoundLayout from "../layouts/NotfoundLayout.vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 
@@ -26,6 +27,13 @@ const router = createRouter({
       component: DraftView,
       meta: { layouts: DefaultLayout },
     },
+    {
+      path: "/reports",
+      name: "Reports",
+      component: ReportView,
+      meta: { layouts: DefaultLayout },
+    },
+    
     {
       path: "/:catchAll(.*)",
       name: "notfound",

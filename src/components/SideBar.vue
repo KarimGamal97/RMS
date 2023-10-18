@@ -55,6 +55,12 @@ export default {
           tooltip: "Drafts ",
           icon: "bx bxs-file-blank",
         },
+        {
+          link: "/reports",
+          name: "Reports ",
+          tooltip: "Reports ",
+          icon: "bx bxs-file",
+        },
       ],
       // Search
       isSearch: {
