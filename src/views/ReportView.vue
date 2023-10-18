@@ -141,7 +141,7 @@ export default {
   methods: {
     async getData() {
       await http
-        .get(`drafts?limit=100000000000000000000000000000000000000`)
+        .get(`drafts/reports/all`)
         .then((res) => {
           this.rows = res.data.data;
           this.tableSkelton = false;
