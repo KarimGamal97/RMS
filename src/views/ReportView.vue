@@ -1,9 +1,11 @@
 <template>
   <div>
     <b-tabs card>
-      <b-tab title="Works"><b-card-text>Soon</b-card-text></b-tab>
-      <b-tab title="Darfts" active>
-        <div class="draft container">
+      <b-tab title="Works" active>
+        <works-comp></works-comp>
+      </b-tab>
+      <b-tab title="Drafts">
+        <div class="draft mt-3">
           <div class="card custom-card">
             <div
               class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0"
@@ -80,10 +82,11 @@
 </template>
 
 <script>
+import worksComp from "../components/worksComp.vue";
 import http from "../http";
 export default {
   name: "my-component",
-
+  components: { worksComp },
   data() {
     return {
       printObj: {
