@@ -119,15 +119,6 @@
           Drafts List
         </h5>
         <div class="card-options d-flex">
-          <!-- <div>
-            <b-dropdown id="dropdown-1" text="Print Options" class="m-md-2">
-              <b-dropdown-item v-print="'#printTable'"
-                >Normal Print</b-dropdown-item
-              >
-              <b-dropdown-item>Pdf</b-dropdown-item>
-              <b-dropdown-item>Excel Sheet</b-dropdown-item>
-            </b-dropdown>
-          </div> -->
           <b-button @click="showModal = true"
             >Add Draft <font-awesome-icon icon="square-plus"
           /></b-button>
@@ -179,14 +170,8 @@
       </div>
     </div>
   </div>
-
   <teleport to="body">
-    <b-modal
-      v-model="editModal"
-      ref="modal"
-      title="Edit on your Draft !"
-      hide-footer
-    >
+    <b-modal v-model="editModal" ref="modal" title="Edit Draft" hide-footer>
       <form ref="form" @submit.prevent="updateRow">
         <!-- Name Input -->
         <b-form-group label="Name" label-for="name-input" :state="nameState">
@@ -209,7 +194,7 @@
             v-model="updatedData.phone"
             :state="nameState"
           ></b-form-input>
-          <p v-if="uphoneErrorMsg" class="error mt-2">{{ uphoneErrorMsg }}</p>
+          <p v-if="updatePhone" class="error mt-2">{{ updatePhone }}</p>
         </b-form-group>
         <!-- Phone Input -->
         <!-- Order Input -->
@@ -225,7 +210,9 @@
             v-model="updatedData.order"
             :state="nameState"
           ></b-form-textarea>
-          <p v-if="orderErrorMsg" class="error mt-2">{{ orderErrorMsg }}</p>
+          <p v-if="updateOrderErrorMsg" class="error mt-2">
+            {{ updateOrderErrorMsg }}
+          </p>
         </b-form-group>
         <!-- Order Input -->
         <!-- Price Input -->
@@ -235,7 +222,9 @@
             v-model="updatedData.price"
             :state="nameState"
           ></b-form-input>
-          <p v-if="uorderErrorMsg" class="error mt-2">{{ uorderErrorMsg }}</p>
+          <p v-if="updatePriceErrorMsg" class="error mt-2">
+            {{ updatePriceErrorMsg }}
+          </p>
         </b-form-group>
         <!-- Price Input -->
         <!-- Type SelectBox -->
@@ -310,7 +299,7 @@ export default {
         {
           label: "Actions",
           field: "actions",
-          sort: false,
+          sortable: false,
         },
       ],
       rows: [],
@@ -341,10 +330,9 @@ export default {
       priceErrorMsg: "",
       typeErrorMsg: "",
       unameErrorMsg: "",
-      uphoneErrorMsg: "",
-      uorderErrorMsg: "",
-      upriceErrorMsg: "",
-      utypeErrorMsg: "",
+      updatePhone: "",
+      updateOrderErrorMsg: "",
+      updatePriceErrorMsg: "",
       tableAnimate: false,
       tableSkelton: true,
     };
@@ -442,37 +430,38 @@ export default {
     },
     "updatedData.name"(v) {
       if (v.length < 3 || v.length > 15) {
-        this.nameErrorMsg = "Name must be between 3 and 15 characters";
+        this.unameErrorMsg = "Name must be between 3 and 15 characters";
       } else if (/\d/.test(v)) {
-        this.nameErrorMsg = "Name must not contain numbers";
+        this.unameErrorMsg = "Name must not contain numbers";
       } else {
-        this.nameErrorMsg = "";
+        this.unameErrorMsg = "";
       }
     },
     "updatedData.phone"(v) {
       if (v.length < 7 || v.length > 15) {
-        this.phoneErrorMsg = "Type a valid order between 7 and 15 characters";
+        this.updatePhone = "Type a valid order between 7 and 15 characters";
       } else {
-        this.phoneErrorMsg = "";
+        this.updatePhone = "";
       }
     },
     "updatedData.order"(v) {
       if (v.length < 3 || v.length > 100) {
-        this.orderErrorMsg = "Type a valid order between 3 and 100 characters";
+        this.updateOrderErrorMsg =
+          "Type a valid order between 3 and 100 characters";
       } else {
-        this.orderErrorMsg = "";
+        this.updateOrderErrorMsg = "";
       }
     },
     "updatedData.price"(v) {
       if (isNaN(v)) {
-        this.priceErrorMsg = "Price a valid price";
+        this.updatePriceErrorMsg = "Price a valid price";
       } else if (v > 999999 || v < 0) {
-        this.priceErrorMsg =
+        this.updatePriceErrorMsg =
           "Price can't be more than 6 digits and a positive value";
       } else if (!/\d/.test(v)) {
-        this.priceErrorMsg = "Price must contain at least one number";
+        this.updatePriceErrorMsg = "Price must contain at least one number";
       } else {
-        this.priceErrorMsg = "";
+        this.updatePriceErrorMsg = "";
       }
     },
     "updatedData.type"(v) {

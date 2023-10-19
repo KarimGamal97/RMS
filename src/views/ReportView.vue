@@ -16,6 +16,7 @@
                   <div class="d-flex justify-content-end">
                     <button class="btn btn-primary me-2" v-print="printObj">
                       Print
+                      <font-awesome-icon icon="print" />
                     </button>
                     <!-- <button class="btn btn-primary me-2" @click="exportPdf">
                       PDF
@@ -87,7 +88,7 @@ export default {
     return {
       printObj: {
         id: "printTable",
-        popTitle: "Darfts",
+        popTitle: "Drafts",
         extraHead: '<meta http-equiv="Content-Language"content="zh-cn"/>',
       },
       columns: [
@@ -123,9 +124,7 @@ export default {
         },
       ],
       rows: [],
-
       types: [],
-
       tableAnimate: false,
       tableSkelton: true,
     };
@@ -140,13 +139,11 @@ export default {
   },
   methods: {
     async getData() {
-      await http
-        .get(`drafts/reports/all`)
-        .then((res) => {
-          this.rows = res.data.data;
-          this.tableSkelton = false;
-          this.tableAnimate = true;
-        });
+      await http.get(`drafts/reports/all`).then((res) => {
+        this.rows = res.data.data;
+        this.tableSkelton = false;
+        this.tableAnimate = true;
+      });
     },
     async getType() {
       await http.get("types").then((res) => {
