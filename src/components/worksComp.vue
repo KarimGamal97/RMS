@@ -124,13 +124,11 @@ export default {
   },
   methods: {
     async getData() {
-      await http
-        .get(`works?limit=100000000000000000000000000000000000000`)
-        .then((res) => {
-          this.rows = res.data.data;
-          this.tableSkelton = false;
-          this.tableAnimate = true;
-        });
+      await http.get(`works/reports/all`).then((res) => {
+        this.rows = res.data.data;
+        this.tableSkelton = false;
+        this.tableAnimate = true;
+      });
     },
   },
   mounted() {

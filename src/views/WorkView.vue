@@ -5,7 +5,7 @@
         class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0"
       >
         <h5 class="main-content-label tx-white my-auto tx-medium">
-          Drafts List
+          Works List
         </h5>
         <div class="card-options d-flex">
           <b-button @click="showModal = true"
