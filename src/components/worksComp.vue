@@ -8,7 +8,7 @@
           Works List
         </h5>
         <div class="card-options d-flex">
-          <div class="card-options">
+          <div class="card-options" v-if="computedTableData.length > 0">
             <div class="d-flex justify-content-end">
               <button class="btn btn-primary me-2" v-print="printObj">
                 Print
@@ -29,7 +29,7 @@
           id="printTable"
           v-if="tableAnimate"
           :columns="columns"
-          :rows="rows"
+          :rows="computedTableData"
           :line-numbers="false"
           :select-options="{ enabled: false }"
           :search-options="{ enabled: false }"
@@ -63,6 +63,11 @@ export default {
         extraHead: '<meta http-equiv="Content-Language"content="zh-cn"/>',
       },
       columns: [
+        {
+          label: "No.",
+          field: "lineNumber",
+          sortable: false,
+        },
         {
           label: "Code",
           field: "code",
@@ -108,6 +113,14 @@ export default {
       tableAnimate: false,
       tableSkelton: true,
     };
+  },
+  computed: {
+    computedTableData() {
+      return this.rows.map((row, index) => ({
+        ...row,
+        lineNumber: index + 1,
+      }));
+    },
   },
   methods: {
     async getData() {
