@@ -45,7 +45,7 @@ export default {
         },
         {
           link: "/work",
-          name: "work ",
+          name: "Works",
           tooltip: "My Work",
           icon: "bx bx-briefcase",
         },
