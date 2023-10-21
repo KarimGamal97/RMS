@@ -22,10 +22,11 @@
                     </button>
                     <!-- <button class="btn btn-primary me-2" @click="exportPdf">
                       PDF
-                    </button>
+                    </button> -->
                     <button class="btn btn-primary me-2" @click="exportToExcel">
                       Excel
-                    </button> -->
+                      <font-awesome-icon icon="table" />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -84,11 +85,13 @@
 <script>
 import worksComp from "../components/worksComp.vue";
 import http from "../http";
+import xlsx from "xlsx/dist/xlsx.full.min";
 export default {
   name: "my-component",
   components: { worksComp },
   data() {
     return {
+      framework: [],
       printObj: {
         id: "printTable",
         popTitle: "Drafts",
@@ -153,6 +156,34 @@ export default {
         this.types = res.data.data;
         // console.log(this.types);
       });
+    },
+    exportToExcel() {
+      const XLSX = xlsx;
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.aoa_to_sheet([
+        this.columns.map((col) => col.label),
+        ...this.computedTableData.map((row) =>
+          this.columns.map((col) => {
+            if (col.field === "phone") {
+              // Format the phone number as text to preserve the format
+              return { t: "s", v: row[col.field] };
+            } else {
+              return row[col.field];
+            }
+          })
+        ),
+      ]);
+      const wscols = [
+        { wch: 5 }, // Adjust the width of the "No." column
+        { wch: 20 }, // Adjust the width of the "Name" column
+        { wch: 20 }, // Adjust the width of the "Phone Number" column
+        { wch: 20 }, // Adjust the width of the "Client Order" column
+        { wch: 20 }, // Adjust the width of the "Price" column
+        { wch: 10 }, // Adjust the width of the "Type" column
+      ];
+      worksheet["!cols"] = wscols;
+      XLSX.utils.book_append_sheet(workbook, worksheet, "framework");
+      XLSX.writeFile(workbook, "framework.xlsx");
     },
   },
   mounted() {

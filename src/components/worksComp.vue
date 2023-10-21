@@ -16,10 +16,11 @@
               </button>
               <!-- <button class="btn btn-primary me-2" @click="exportPdf">
                       PDF
-                    </button>
-                    <button class="btn btn-primary me-2" @click="exportToExcel">
-                      Excel
                     </button> -->
+              <button class="btn btn-primary me-2" @click="exportToExcel">
+                Excel
+                <font-awesome-icon icon="table" />
+              </button>
             </div>
           </div>
         </div>
@@ -54,6 +55,7 @@
 
 <script>
 import http from "../http";
+import xlsx from "xlsx/dist/xlsx.full.min";
 export default {
   data() {
     return {
@@ -129,6 +131,37 @@ export default {
         this.tableSkelton = false;
         this.tableAnimate = true;
       });
+    },
+    exportToExcel() {
+      const XLSX = xlsx;
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.aoa_to_sheet([
+        this.columns.map((col) => col.label),
+        ...this.computedTableData.map((row) =>
+          this.columns.map((col) => {
+            if (col.field === "phone") {
+              // Format the phone number as text to preserve the format
+              return { t: "s", v: row[col.field] };
+            } else {
+              return row[col.field];
+            }
+          })
+        ),
+      ]);
+      const wscols = [
+        { wch: 5 },
+        { wch: 5 },
+        { wch: 5 },
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 10 },
+        { wch: 10 },
+        { wch: 20 },
+        { wch: 10 },
+      ];
+      worksheet["!cols"] = wscols;
+      XLSX.utils.book_append_sheet(workbook, worksheet, "framework");
+      XLSX.writeFile(workbook, "framework.xlsx");
     },
   },
   mounted() {
