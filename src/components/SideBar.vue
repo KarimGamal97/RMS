@@ -41,7 +41,7 @@ export default {
           link: "/",
           name: "Dashboard",
           tooltip: "Dashboard",
-          icon: "bx bx-home",
+          icon: "bx bxs-grid-alt",
         },
         {
           link: "/work",
@@ -60,6 +60,30 @@ export default {
           name: "Reports ",
           tooltip: "Reports ",
           icon: "bx bxs-file",
+        },
+        {
+          link: "/user-guide",
+          name: "User Guide",
+          tooltip: "User Guide",
+          icon: "bx bxs-user",
+        },
+        {
+          link: "/policies",
+          name: "Privacy & Policies",
+          tooltip: "Privacy & Policies",
+          icon: "bx bxs-lock",
+        },
+        {
+          link: "/support",
+          name: "Support",
+          tooltip: "Support",
+          icon: "bx bxs-phone",
+        },
+        {
+          link: "/settings",
+          name: "General Settings",
+          tooltip: "General Settings",
+          icon: "bx bxs-cog",
         },
       ],
       // Search
@@ -97,3 +121,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.sidebar.open {
+  overflow: auto;
+}
+</style>
