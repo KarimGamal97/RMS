@@ -9,7 +9,8 @@
         </h5>
         <div class="card-options d-flex">
           <b-button @click="showModal = true"
-            >Add Work <font-awesome-icon icon="square-plus"
+            ><router-link to="/work/add">Add Work</router-link>
+            <font-awesome-icon icon="square-plus"
           /></b-button>
         </div>
       </div>
@@ -67,6 +68,7 @@
 
 <script>
 import http from "../http";
+import Swal from "sweetalert2";
 export default {
   data() {
     return {
@@ -119,6 +121,26 @@ export default {
           this.tableSkelton = false;
           this.tableAnimate = true;
         });
+    },
+    async deleteRow(id, index) {
+      await http.delete(`works/${id}`).then((res) => {
+        if (res) {
+          Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire("Deleted!", "Your file has been deleted.", "success");
+              this.rows.splice(index, 1);
+            }
+          });
+        }
+      });
     },
   },
   mounted() {
