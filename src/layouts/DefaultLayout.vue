@@ -4,7 +4,10 @@
       <side-bar></side-bar>
       <div class="fixed-top-nav d-flex">
         <!-- Start Nav Options -->
-        <div class="col-md-12 col-sm-12 p-2">
+        <div class="col-md-12 col-sm-12 p-2 d-flex justify-content-between">
+          <div class="logo">
+            <h3>Logo</h3>
+          </div>
           <div class="fixed-nav-options">
             <button class="btn btn-danger">
               Log Out
@@ -15,6 +18,14 @@
         <!-- End Nav Options -->
       </div>
       <router-view />
+      <footer class="footer-head">
+        <div class="footer text-center">
+          <p>
+            Copy Rights &copy; {{ new Date().getFullYear() }} - RMS Powered By
+            <a href="#" target="_blank" id="BugOff">BugOff</a>
+          </p>
+        </div>
+      </footer>
     </div>
   </div>
 </template>
@@ -92,5 +103,21 @@ export default {
   .fixed-nav-options {
     justify-content: center;
   }
+}
+.footer-head {
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #f1f1f1;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+footer p {
+  text-align: center;
+  margin: auto;
+}
+#BugOff {
+  text-decoration: none;
 }
 </style>

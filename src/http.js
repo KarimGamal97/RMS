@@ -30,7 +30,11 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    toast.error(error.response.data.msg);
+    let err = document.querySelector("#loaders4");
+    if (error.response.data.msg) {
+      toast.error(error.response.data.msg[0]);
+      err.style.display = "none";
+    }
     return Promise.reject(error);
   }
 );
