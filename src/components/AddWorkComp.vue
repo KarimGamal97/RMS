@@ -2,7 +2,7 @@
   <div class="container pt-4" style="">
     <div class="row">
       <div class="col-lg-12">
-        <form id="add-work-form">
+        <form id="add-work-form" @submit.prevent="addData">
           <div class="controls">
             <div class="row mb-3">
               <!-- Code -->
@@ -94,7 +94,7 @@
             </div>
             <div class="row mb-3">
               <!-- Price -->
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="form_price">Price</label>
                   <input
@@ -106,9 +106,21 @@
                   <div class="help-block with-errors"></div>
                 </div>
               </div>
-
+              <!-- Duration -->
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="form_duration">Duration</label>
+                  <input
+                    id="form_duration"
+                    type="number"
+                    class="form-control mt-2"
+                    v-model="formData.duration"
+                  />
+                  <div class="help-block with-errors"></div>
+                </div>
+              </div>
               <!-- Insurance -->
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <div class="form-group">
                   <label for="form_price">Insurance</label>
                   <input
@@ -160,19 +172,24 @@
 
 <script>
 import http from "../http";
-import Swal from "sweetalert2";
+import { useToast } from "vue-toastification";
 export default {
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   data() {
     return {
       formData: {
         code: "",
         type: null,
-        status: "",
+        status: null,
         owner: "",
         phone: "",
         price: "",
         address: "",
         details: "",
+        duration: "",
         insurance: "",
       },
       types: null,
@@ -184,9 +201,22 @@ export default {
         this.types = res.data.data;
       });
     },
+    async getStatus() {
+      await http.get("status").then((res) => {
+        this.statues = res.data.data;
+      });
+    },
+    async addData() {
+      await http.post("works", this.formData).then((res) => {
+        this.$router.push({ name: "work" });
+        console.log(res.data.data);
+        this.toast.success("Added successfully");
+      });
+    },
   },
   mounted() {
     this.getType();
+    this.getStatus();
   },
 };
 </script>

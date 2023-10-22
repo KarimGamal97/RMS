@@ -109,7 +109,6 @@
       </form>
     </b-modal>
   </teleport>
-
   <div class="draft container mt-5">
     <div class="card custom-card">
       <div
