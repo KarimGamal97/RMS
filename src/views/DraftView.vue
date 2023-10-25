@@ -88,7 +88,6 @@
           </b-form-select>
           <p v-if="typeErrorMsg" class="error mt-2">{{ typeErrorMsg }}</p>
         </b-form-group>
-
         <b-button
           variant="outline-success"
           type="submit"
@@ -339,7 +338,6 @@ export default {
   computed: {
     dis() {
       const { name, phone, order, price, type } = this.formData;
-
       if (
         name.length < 3 ||
         name.length > 15 ||
@@ -357,12 +355,10 @@ export default {
       ) {
         return true;
       }
-
       return false;
     },
     diss() {
       const { name, phone, order, price, type } = this.updatedData;
-
       if (
         name.length < 3 ||
         name.length > 15 ||
@@ -380,7 +376,6 @@ export default {
       ) {
         return true;
       }
-
       return false;
     },
   },
@@ -438,7 +433,7 @@ export default {
     },
     "updatedData.phone"(v) {
       if (v.length < 7 || v.length > 15) {
-        this.updatePhone = "Type a valid order between 7 and 15 characters";
+        this.updatePhone = "Type a valid phone between 7 and 15 numbers";
       } else {
         this.updatePhone = "";
       }
