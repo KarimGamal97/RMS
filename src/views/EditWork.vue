@@ -197,7 +197,8 @@
                 variant="outline-success"
                 type="submit"
                 class="m-auto d-block mt-4"
-                >Add</b-button
+                :disabled="isValid"
+                >Update</b-button
               >
             </div>
           </div>
@@ -242,6 +243,53 @@ export default {
       durationErrorMsg: "",
       insuranceErrorMsg: "",
     };
+  },
+  computed: {
+    isValid() {
+      const {
+        code,
+        type,
+        status,
+        owner,
+        phone,
+        price,
+        address,
+        details,
+        duration,
+        insurance,
+      } = this.formData;
+      if (
+        code < 0 ||
+        code > 999999 ||
+        !code ||
+        !type ||
+        !status ||
+        owner < 3 ||
+        owner > 15 ||
+        /\d/.test(owner) ||
+        phone.length < 7 ||
+        phone.length > 15 ||
+        (phone && isNaN(phone)) ||
+        isNaN(Number(price)) ||
+        price < 1 ||
+        price > 999999 ||
+        address.length < 6 ||
+        address.length > 60 ||
+        isNaN(duration) ||
+        duration > 365 ||
+        duration < 0 ||
+        !/\d/.test(duration) ||
+        isNaN(insurance) ||
+        insurance > 99999 ||
+        insurance < 0 ||
+        !/\d/.test(insurance) ||
+        details.length < 5 ||
+        details.length > 256
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
   watch: {
     "formData.code"(v) {
@@ -351,16 +399,35 @@ export default {
       });
     },
     async addData() {
-      await http.post("works", this.formData).then((res) => {
-        this.$router.push({ name: "work" });
-        console.log(res.data.data);
-        this.toast.success("Added successfully");
+      await http
+        .patch(`works/${this.$route.params.id}`, this.formData)
+        .then((res) => {
+          this.$router.push({ name: "work" });
+          console.log(res.data.data);
+          this.toast.success("Updated successfully");
+        });
+    },
+    async getById() {
+      await http.get(`works/${this.$route.params.id}`).then((res) => {
+        this.formData.code = res.data.data.code;
+        this.formData.address = res.data.data.address;
+        this.formData.insurance = res.data.data.insurance;
+        this.formData.owner = res.data.data.owner;
+        this.formData.phone = res.data.data.phone;
+        this.formData.price = res.data.data.price;
+        this.formData.details = res.data.data.details;
+        this.formData.status = res.data.data.status;
+        this.formData.type = res.data.data.type;
+        if (res.data.data.duration) {
+          this.formData.duration = res.data.data.duration;
+        }
       });
     },
   },
   mounted() {
     this.getType();
     this.getStatus();
+    this.getById();
   },
 };
 </script>

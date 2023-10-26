@@ -33,7 +33,7 @@
               <b-button
                 type="button"
                 class="btn btn-warning me-2"
-                @click="editRow(props.row)"
+                @click="editRow(props.row._id)"
                 >Edit <font-awesome-icon icon="pen-to-square"
               /></b-button>
               <button
@@ -141,6 +141,10 @@ export default {
           });
         }
       });
+    },
+    async editRow(id) {
+      this.$router.push({ name: "EditWork", params: { id: id } });
+      console.log(id);
     },
   },
   mounted() {

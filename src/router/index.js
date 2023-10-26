@@ -10,6 +10,7 @@ import ReportView from "../views/ReportView.vue";
 import AddWorkView from "../views/AddWorkView.vue";
 import AdminView from "../views/AdminView.vue";
 import LandingView from "../views/LandingView.vue";
+import EditWork from "../views/EditWork.vue";
 import NotfoundLayout from "../layouts/NotfoundLayout.vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import LandingLayout from "../layouts/LandingLayout.vue";
@@ -70,6 +71,12 @@ const router = createRouter({
       path: "/settings",
       name: "SettingsView",
       component: SettingsView,
+      meta: { layouts: DefaultLayout },
+    },
+    {
+      path: "/edit-work/:id",
+      name: "EditWork",
+      component: EditWork,
       meta: { layouts: DefaultLayout },
     },
     {
