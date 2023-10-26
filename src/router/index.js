@@ -11,6 +11,7 @@ import AddWorkView from "../views/AddWorkView.vue";
 import AdminView from "../views/AdminView.vue";
 import LandingView from "../views/LandingView.vue";
 import EditWork from "../views/EditWork.vue";
+import FaqView from "../views/FaqView.vue";
 import NotfoundLayout from "../layouts/NotfoundLayout.vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import LandingLayout from "../layouts/LandingLayout.vue";
@@ -77,6 +78,12 @@ const router = createRouter({
       path: "/edit-work/:id",
       name: "EditWork",
       component: EditWork,
+      meta: { layouts: DefaultLayout },
+    },
+    {
+      path: "/faq",
+      name: "FaqView",
+      component: FaqView,
       meta: { layouts: DefaultLayout },
     },
     {

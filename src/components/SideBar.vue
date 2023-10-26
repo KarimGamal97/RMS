@@ -85,6 +85,12 @@ export default {
           tooltip: "General Settings",
           icon: "bx bxs-cog",
         },
+        {
+          link: "/faq",
+          name: "FAQ",
+          tooltip: "FAQ",
+          icon: "bx bx-question-mark",
+        },
       ],
       // Search
       isSearch: {
