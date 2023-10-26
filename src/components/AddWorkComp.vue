@@ -197,6 +197,7 @@
                 variant="outline-success"
                 type="submit"
                 class="m-auto d-block mt-4"
+                :disabled="isValid"
                 >Add</b-button
               >
             </div>
@@ -242,6 +243,53 @@ export default {
       durationErrorMsg: "",
       insuranceErrorMsg: "",
     };
+  },
+  computed: {
+    isValid() {
+      const {
+        code,
+        type,
+        status,
+        owner,
+        phone,
+        price,
+        address,
+        details,
+        duration,
+        insurance,
+      } = this.formData;
+      if (
+        code < 0 ||
+        code > 999999 ||
+        !code ||
+        !type ||
+        !status ||
+        owner < 3 ||
+        owner > 15 ||
+        /\d/.test(owner) ||
+        phone.length < 7 ||
+        phone.length > 15 ||
+        (phone && isNaN(phone)) ||
+        isNaN(Number(price)) ||
+        price < 1 ||
+        price > 999999 ||
+        address.length < 6 ||
+        address.length > 60 ||
+        isNaN(duration) ||
+        duration > 365 ||
+        duration < 0 ||
+        !/\d/.test(duration) ||
+        isNaN(insurance) ||
+        insurance > 99999 ||
+        insurance < 0 ||
+        !/\d/.test(insurance) ||
+        details.length < 5 ||
+        details.length > 256
+      ) {
+        return true;
+      }
+      return false;
+    },
   },
   watch: {
     "formData.code"(v) {
