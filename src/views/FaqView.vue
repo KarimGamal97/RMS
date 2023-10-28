@@ -32,27 +32,46 @@
               required
             />
           </div>
+          <b-form-group>
+          <b-form-select id="type-select" v-model="formData.type">
+            <option value="0" disabled hidden>Select</option>
+            <option value="suggestion">Suggestion</option>
+            <option value="complaints">Complaints</option>
+          </b-form-select>
+        </b-form-group>
           <!-- Message -->
           <div class="col-md-12 col-sm-12 mb-4">
             <textarea
               type="text"
               class="form-control mb-4"
               placeholder="Your Message"
-              v-model="formData.message"
+              v-model="formData.msg"
               rows="5"
               cols="50"
               style="resize: none"
             />
           </div>
           <!-- Sign up button -->
-          <button
-            class="btn btn-success my-4 btn-block"
-            type="submit"
-            :disabled="isValid"
-          >
-            Send
-            <font-awesome-icon icon="paper-plane" />
-          </button>
+          <b-button
+          variant="outline-success"
+          type="submit"
+          class="m-auto d-block mt-4"
+          :disabled="isValid"
+          >Send
+          <font-awesome-icon icon="paper-plane" />
+          
+          </b-button
+        >
+        <div id="loaders4" v-if="loadingForm">
+          <div id="Loading">
+            <div class="text-center">
+              <div class="rms-ripple">
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+        </div>
         </form>
       </div>
     </div>
@@ -60,26 +79,28 @@
 </template>
 
 <script>
-// import http from "../http";
-// import { useToast } from "vue-toastification";
+import http from "../http";
+import { useToast } from "vue-toastification";
 export default {
-  //   setup() {
-  //     const toast = useToast();
-  //     return { toast };
-  //   },
+    setup() {
+      const toast = useToast();
+      return { toast };
+    },
   data() {
     return {
       formData: {
         name: "",
         phone: "",
         email: "",
-        message: "",
+        msg: "",
+        type:"0",
       },
+      loadingForm:false,
     };
   },
   computed: {
     isValid() {
-      const { name, phone, email, message } = this.formData;
+      const { name, phone, email, msg , type } = this.formData;
       const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       if (
         name.length < 3 ||
@@ -87,9 +108,10 @@ export default {
         phone.length < 7 ||
         phone.length > 15 ||
         (phone && isNaN(phone)) ||
-        message.length < 5 ||
-        message.length > 256 ||
-        !email.match(emailPattern)
+        msg.length < 5 ||
+        msg.length > 256 ||
+        !email.match(emailPattern) ||
+        type.length > 0
       ) {
         return true;
       }
@@ -113,7 +135,7 @@ export default {
         this.phoneErrorMsg = "";
       }
     },
-    "formData.message"(v) {
+    "formData.msg"(v) {
       if (v.length < 5) {
         this.messageErrorMsg = "Message must be more than 5 characters";
       } else if (v.length > 256) {
@@ -133,15 +155,15 @@ export default {
     },
   },
   methods: {
-    // async sendData() {
-    //   await http.post("contact", this.formData).then((res) => {
-    //     console.log(res.data.data);
-    //     this.toast.success("Sent successfully");
-    //   });
-    //   },
-    sendData() {
-      console.log(this.formData);
+    async sendData() {
+      this.loadingForm = true
+      await http.post("faqs", this.formData).then((res) => {
+        console.log(res.data.data)
+        this.toast.success("Sent successfully");
+        this.loadingForm = false
+      });
     },
+    
   },
 };
 </script>
