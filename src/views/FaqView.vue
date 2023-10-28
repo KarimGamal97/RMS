@@ -33,12 +33,14 @@
             />
           </div>
           <b-form-group>
-          <b-form-select id="type-select" v-model="formData.type">
-            <option value="0" selected disabled hidden>Select</option>
-            <option value="suggestion">Suggestion</option>
-            <option value="complaints">Complaints</option>
-          </b-form-select>
-        </b-form-group>
+            <b-form-select id="type-select" v-model="formData.type">
+              <option value="0" selected disabled hidden>
+                Select your FAQ's type
+              </option>
+              <option value="suggestion">Suggestion</option>
+              <option value="complaints">Complaint</option>
+            </b-form-select>
+          </b-form-group>
           <!-- Message -->
           <div class="col-md-12 col-sm-12 mb-4">
             <textarea
@@ -53,25 +55,23 @@
           </div>
           <!-- Sign up button -->
           <b-button
-          variant="outline-success"
-          type="submit"
-          class="m-auto d-block mt-4"
-          :disabled="isValid"
-          >Send
-          <font-awesome-icon icon="paper-plane" />
-          
-          </b-button
-        >
-        <div id="loaders4" v-if="loadingForm">
-          <div id="Loading">
-            <div class="text-center">
-              <div class="rms-ripple">
-                <div></div>
-                <div></div>
+            variant="outline-success"
+            type="submit"
+            class="m-auto d-block mt-4"
+            :disabled="isValid"
+            >Send
+            <font-awesome-icon icon="paper-plane" />
+          </b-button>
+          <div id="loaders4" v-if="loadingForm">
+            <div id="Loading">
+              <div class="text-center">
+                <div class="rms-ripple">
+                  <div></div>
+                  <div></div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
         </form>
       </div>
     </div>
@@ -82,10 +82,10 @@
 import http from "../http";
 import { useToast } from "vue-toastification";
 export default {
-    setup() {
-      const toast = useToast();
-      return { toast };
-    },
+  setup() {
+    const toast = useToast();
+    return { toast };
+  },
   data() {
     return {
       formData: {
@@ -93,14 +93,14 @@ export default {
         phone: "",
         email: "",
         msg: "",
-        type:"0",
+        type: "0",
       },
-      loadingForm:false,
+      loadingForm: false,
     };
   },
   computed: {
     isValid() {
-      const { name, phone, email, msg , type } = this.formData;
+      const { name, phone, email, msg, type } = this.formData;
       const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       if (
         name.length < 3 ||
@@ -156,14 +156,13 @@ export default {
   },
   methods: {
     async sendData() {
-      this.loadingForm = true
+      this.loadingForm = true;
       await http.post("faqs", this.formData).then((res) => {
-        console.log(res.data.data)
+        console.log(res.data.data);
         this.toast.success("Sent successfully");
-        this.loadingForm = false
+        this.loadingForm = false;
       });
     },
-    
   },
 };
 </script>
