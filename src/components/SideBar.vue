@@ -38,7 +38,7 @@ export default {
       // Menu items
       menuItems: [
         {
-          link: "/",
+          link: "/dashboard",
           name: "Dashboard",
           tooltip: "Dashboard",
           icon: "bx bxs-grid-alt",

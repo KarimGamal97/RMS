@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+// Pages
+import DashboardView from "../views/DashboardView.vue";
 import WorkView from "../views/WorkView.vue";
 import DraftView from "../views/DraftView.vue";
 import UserGuideView from "../views/UserGuideView.vue";
@@ -12,82 +13,85 @@ import AdminView from "../views/AdminView.vue";
 import LandingView from "../views/LandingView.vue";
 import EditWork from "../views/EditWork.vue";
 import FaqView from "../views/FaqView.vue";
+import LoginView from "../views/LoginView.vue";
+// Layouts
 import NotfoundLayout from "../layouts/NotfoundLayout.vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
 import LandingLayout from "../layouts/LandingLayout.vue";
 import AdminLayout from "../layouts/AdminLayout.vue";
+import LoginLayout from "../layouts/LoginLayout.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/",
-      name: "home",
-      component: HomeView,
-      meta: { layouts: DefaultLayout },
+      path: "/dashboard",
+      name: "DashboardView",
+      component: DashboardView,
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/work",
       name: "work",
       component: WorkView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/draft",
       name: "draft",
       component: DraftView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/reports",
       name: "Reports",
       component: ReportView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/work/add",
       name: "AddWorkView",
       component: AddWorkView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/user-guide",
       name: "UserGuideView",
       component: UserGuideView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/policies",
       name: "PoliciesView",
       component: PoliciesView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/support",
       name: "SupportView",
       component: SupportView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/settings",
       name: "SettingsView",
       component: SettingsView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
-      path: "/edit-work/:id",
+      path: "/work/edit/:id",
       name: "EditWork",
       component: EditWork,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
       path: "/faq",
       name: "FaqView",
       component: FaqView,
-      meta: { layouts: DefaultLayout },
+      meta: { layouts: DefaultLayout, role: "user" },
     },
     {
-      path: "/landing",
+      path: "/",
       name: "LandingView",
       component: LandingView,
       meta: { layouts: LandingLayout },
@@ -96,7 +100,13 @@ const router = createRouter({
       path: "/admin",
       name: "AdminView",
       component: AdminView,
-      meta: { layouts: AdminLayout },
+      meta: { layouts: AdminLayout, role: "admin" },
+    },
+    {
+      path: "/login",
+      name: "LoginView",
+      component: LoginView,
+      meta: { layouts: LoginLayout },
     },
     {
       path: "/:catchAll(.*)",
