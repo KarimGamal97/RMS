@@ -87,8 +87,8 @@ export default {
         },
         {
           link: "/faq",
-          name: "FAQ",
-          tooltip: "FAQ",
+          name: "FAQ's",
+          tooltip: "FAQ's",
           icon: "bx bx-question-mark",
         },
       ],
@@ -129,7 +129,7 @@ export default {
 </script>
 
 <style>
-.sidebar.open {
-  overflow: auto;
+.sidebar {
+  background-color: #34495e;
 }
 </style>
