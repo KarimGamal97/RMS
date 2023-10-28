@@ -3,6 +3,7 @@
     <div class="card custom-card">
       <div
         class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0"
+        style="background-color: #95a5a6"
       >
         <h5 class="main-content-label tx-white my-auto tx-medium">
           Works List

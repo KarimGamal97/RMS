@@ -1,7 +1,6 @@
 <template>
   <div class="app">
     <component :is="$route.meta.layouts" />
-    <!-- <router-view /> -->
   </div>
 </template>
 
