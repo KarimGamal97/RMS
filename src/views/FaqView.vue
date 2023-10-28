@@ -111,7 +111,7 @@ export default {
         msg.length < 5 ||
         msg.length > 256 ||
         !email.match(emailPattern) ||
-        !type
+        type.length > 0
       ) {
         return true;
       }
