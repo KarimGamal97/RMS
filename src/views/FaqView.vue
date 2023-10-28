@@ -34,7 +34,7 @@
           </div>
           <b-form-group>
           <b-form-select id="type-select" v-model="formData.type">
-            <option value="0" disabled hidden>Select</option>
+            <option value="0" selected disabled hidden>Select</option>
             <option value="suggestion">Suggestion</option>
             <option value="complaints">Complaints</option>
           </b-form-select>
@@ -111,7 +111,7 @@ export default {
         msg.length < 5 ||
         msg.length > 256 ||
         !email.match(emailPattern) ||
-        type.length > 0
+        type.length < 2
       ) {
         return true;
       }
