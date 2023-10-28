@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div>لو حه التحكم الادمن</div>
 </template>
 
 <script>
