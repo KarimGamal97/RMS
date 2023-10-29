@@ -12,6 +12,9 @@
               placeholder="Your Name"
               v-model="formData.name"
             />
+            <p v-if="ownerErrorMsg" class="error mt-2">
+              {{ ownerErrorMsg }}
+            </p>
           </div>
           <!-- Phone number -->
           <div class="col-md-12 col-sm-12 mb-4">
@@ -21,6 +24,9 @@
               placeholder="Phone number"
               v-model="formData.phone"
             />
+            <p v-if="phoneErrorMsg" class="error mt-2">
+              {{ phoneErrorMsg }}
+            </p>
           </div>
           <!-- E-mail -->
           <div class="col-md-12 col-sm-12 mb-4">
@@ -31,7 +37,11 @@
               v-model="formData.email"
               required
             />
+            <p v-if="emailErrorMsg" class="error mt-2">
+              {{ emailErrorMsg }}
+            </p>
           </div>
+          <!-- Type -->
           <b-form-group>
             <b-form-select id="type-select" v-model="formData.type">
               <option value="0" selected disabled hidden>
@@ -40,6 +50,9 @@
               <option value="suggestion">Suggestion</option>
               <option value="complaints">Complaint</option>
             </b-form-select>
+            <p v-if="typeErrorMsg" class="error mt-2">
+              {{ typeErrorMsg }}
+            </p>
           </b-form-group>
           <!-- Message -->
           <div class="col-md-12 col-sm-12 mb-4">
@@ -52,8 +65,11 @@
               cols="50"
               style="resize: none"
             />
+            <p v-if="messageErrorMsg" class="error mt-2">
+              {{ messageErrorMsg }}
+            </p>
           </div>
-          <!-- Sign up button -->
+          <!-- Submit button -->
           <b-button
             variant="outline-success"
             type="submit"
@@ -96,11 +112,16 @@ export default {
         type: "0",
       },
       loadingForm: false,
+      ownerErrorMsg: "",
+      phoneErrorMsg: "",
+      messageErrorMsg: "",
+      messageErrorMsg: "",
+      typeErrorMsg: "",
     };
   },
   computed: {
     isValid() {
-      const { name, phone, email, msg, type } = this.formData;
+      const { name, phone, email, msg } = this.formData;
       const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
       if (
         name.length < 3 ||
@@ -110,8 +131,7 @@ export default {
         (phone && isNaN(phone)) ||
         msg.length < 5 ||
         msg.length > 256 ||
-        !email.match(emailPattern) ||
-        type.length < 2
+        !email.match(emailPattern)
       ) {
         return true;
       }
@@ -131,6 +151,8 @@ export default {
     "formData.phone"(v) {
       if (v.length < 7 || v.length > 15) {
         this.phoneErrorMsg = "Type a valid phone between 7 and 15 numbers";
+      } else if (isNaN(v)) {
+        this.phoneErrorMsg = "Phone number can only contains digits";
       } else {
         this.phoneErrorMsg = "";
       }
@@ -146,16 +168,23 @@ export default {
     },
     "formData.email"(v) {
       if (v.length < 5) {
-        this.messageErrorMsg = "Message must be more than 5 characters";
+        this.emailErrorMsg = "Email must be more than 5 characters";
       } else if (v.length > 256) {
-        this.messageErrorMsg = "Message can't be longer than 256 characters";
+        this.emailErrorMsg = "Email can't be longer than 256 characters";
+      } else if (!/\S+@\S+\.\S+/.test(v)) {
+        this.emailErrorMsg = "Invalid email format";
       } else {
-        this.messageErrorMsg = "";
+        this.emailErrorMsg = "";
       }
     },
   },
   methods: {
     async sendData() {
+      if (this.formData.type == "0") {
+        document.querySelector("#type-select").focus;
+
+        return (this.typeErrorMsg = "Select at least one type");
+      }
       this.loadingForm = true;
       await http.post("faqs", this.formData).then((res) => {
         console.log(res.data.data);
