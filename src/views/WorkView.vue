@@ -9,8 +9,8 @@
           Works List
         </h5>
         <div class="card-options d-flex">
-          <b-button @click="showModal = true"
-            ><router-link to="/work/add">Add Work</router-link>
+          <b-button @click="openLink">
+            Add
             <font-awesome-icon icon="square-plus"
           /></b-button>
         </div>
@@ -146,6 +146,9 @@ export default {
     async editRow(id) {
       this.$router.push({ name: "EditWork", params: { id: id } });
       console.log(id);
+    },
+    openLink() {
+      this.$router.push({ name: "AddWorkView" });
     },
   },
   mounted() {

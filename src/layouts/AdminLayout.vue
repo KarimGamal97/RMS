@@ -1,5 +1,6 @@
 <template>
-  <div class="container-fluid">
+  <span class="loader"></span>
+  <div class="container-fluid" v-if="hide">
     <div class="row">
       <side-bar></side-bar>
       <div class="fixed-top-nav d-flex">
@@ -37,11 +38,11 @@ export default {
   data() {
     return {
       types: ["search"],
+      hide: false,
     };
   },
   methods: {},
   components: {
-    
     SideBar,
   },
 };
