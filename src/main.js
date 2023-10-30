@@ -32,6 +32,8 @@ import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
 // Print
 import print from "vue3-print-nb";
+// Emailjs
+import emailjs from "emailjs-com";
 
 const app = createApp(App);
 
@@ -42,6 +44,11 @@ app.use(VueGoodLinks);
 app.use(BootstrapVue3);
 app.use(Toast);
 app.use(print);
+app.use(emailjs, {
+  service_id: "service_mjs3ihv",
+  template_id: "template_raapfvl",
+  user_id: "Bv89uLo2HHwcmxNEW4DW7",
+});
 app.component("vue-sidebar-menu-akahon", VueSidebarMenuAkahon);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(router);

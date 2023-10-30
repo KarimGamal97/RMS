@@ -62,18 +62,6 @@ export default {
           icon: "bx bxs-file",
         },
         {
-          link: "/user-guide",
-          name: "User Guide",
-          tooltip: "User Guide",
-          icon: "bx bxs-user",
-        },
-        {
-          link: "/policies",
-          name: "Privacy & Policies",
-          tooltip: "Privacy & Policies",
-          icon: "bx bxs-lock",
-        },
-        {
           link: "/support",
           name: "Support",
           tooltip: "Support",

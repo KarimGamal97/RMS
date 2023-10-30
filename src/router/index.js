@@ -11,12 +11,14 @@ import ReportView from "../views/ReportView.vue";
 import AddWorkView from "../views/AddWorkView.vue";
 import LandingView from "../views/LandingView.vue";
 import EditWork from "../views/EditWork.vue";
+import ShowWork from "../views/ShowWork.vue";
 import FaqView from "../views/FaqView.vue";
+import ContactView from "../views/ContactView.vue";
 import LoginView from "../views/LoginView.vue";
 // Admin
 import AdminView from "../views/AdminView.vue";
-import Suggestion from '../components/admin/faqs/suggestion.vue';
-import Complaint from '../components/admin/faqs/complaint.vue';
+import Suggestion from "../components/admin/faqs/suggestion.vue";
+import Complaint from "../components/admin/faqs/complaint.vue";
 // Layouts
 import NotfoundLayout from "../layouts/NotfoundLayout.vue";
 import DefaultLayout from "../layouts/DefaultLayout.vue";
@@ -88,9 +90,21 @@ const router = createRouter({
       meta: { layouts: DefaultLayout, role: "user" },
     },
     {
+      path: "/work/show/:id",
+      name: "ShowWork",
+      component: ShowWork,
+      meta: { layouts: DefaultLayout, role: "user" },
+    },
+    {
       path: "/faq",
       name: "FaqView",
       component: FaqView,
+      meta: { layouts: DefaultLayout, role: "user" },
+    },
+    {
+      path: "/contact",
+      name: "ContactView",
+      component: ContactView,
       meta: { layouts: DefaultLayout, role: "user" },
     },
     {
@@ -117,7 +131,7 @@ const router = createRouter({
       component: Complaint,
       meta: { layouts: AdminLayout, role: "admin" },
     },
-    
+
     {
       path: "/login",
       name: "LoginView",

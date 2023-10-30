@@ -44,7 +44,7 @@
                 Delete
                 <font-awesome-icon icon="trash" />
               </button>
-              <button class="btn btn-info me-2" @click="deleteRow(props.row)">
+              <button class="btn btn-info me-2" @click="showRow(props.row._id)">
                 Show
                 <font-awesome-icon icon="eye" />
               </button>
@@ -145,6 +145,10 @@ export default {
     },
     async editRow(id) {
       this.$router.push({ name: "EditWork", params: { id: id } });
+      console.log(id);
+    },
+    async showRow(id) {
+      this.$router.push({ name: "ShowWork", params: { id: id } });
       console.log(id);
     },
     openLink() {
