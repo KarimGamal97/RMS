@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-8 mx-auto">
-        <form class="text-center pt-3" @submit.prevent="sendEmail">
+        <form class="text-center pt-3" @submit.prevent="sendData">
           <h4 class="mb-4 fw-bold">Contact Us</h4>
           <!-- name -->
           <div class="col-md-12 col-sm-12 mb-4">
@@ -94,9 +94,9 @@
 </template>
 
 <script>
-// import http from "../http";
+import http from "../http";
 import { useToast } from "vue-toastification";
-import emailjs from "emailjs-com";
+// import emailjs from "emailjs-com";
 export default {
   setup() {
     const toast = useToast();
@@ -188,22 +188,30 @@ export default {
     },
   },
   methods: {
-    sendEmail() {
-      const emailParams = {
-        from_name: this.formData.name,
-        from_phone: this.formData.phone,
-        from_email: this.formData.email,
-        from_address: this.formData.address,
-        message: this.formData.msg,
-      };
-      emailjs
-        .send("service_mjs3ihv", "template_raapfvl", emailParams)
-        .then((response) => {
-          console.log("Email sent:", response);
-        })
-        .catch((error) => {
-          console.error("Email not sent:", error);
-        });
+    // sendEmail() {
+    //   const emailParams = {
+    //     from_name: this.formData.name,
+    //     from_phone: this.formData.phone,
+    //     from_email: this.formData.email,
+    //     from_address: this.formData.address,
+    //     message: this.formData.msg,
+    //   };
+    //   emailjs
+    //     .send("service_mjs3ihv", "template_raapfvl", emailParams)
+    //     .then((response) => {
+    //       console.log("Email sent:", response);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Email not sent:", error);
+    //     });
+    // },
+    async sendData() {
+      this.loadingForm = true;
+      await http.post("contact", this.formData).then((res) => {
+        console.log(res.data.data);
+        this.toast.success("Sent successfully");
+        this.loadingForm = false;
+      });
     },
   },
 };
