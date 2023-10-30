@@ -28,12 +28,15 @@
       </footer>
     </div>
   </div>
+  <scroll-top></scroll-top>
 </template>
 
 <script>
 import SideBar from "@/components/sidebar.vue";
+import ScrollTop from "../components/ScrollTop.vue";
 
 export default {
+  components: { ScrollTop },
   data() {
     return {
       types: ["search"],

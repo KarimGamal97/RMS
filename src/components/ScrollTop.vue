@@ -1,6 +1,6 @@
 <template>
   <button class="scroll-to-top-button" @click="scrollToTop" v-show="showButton">
-    Scroll to Top
+    <font-awesome-icon icon="arrow-up" style="font-size: 150px" />
   </button>
 </template>
 
@@ -19,7 +19,7 @@ export default {
       });
     },
     handleScroll() {
-      this.showButton = window.scrollY > 20; // Adjust the value as needed
+      this.showButton = window.scrollY > 20;
     },
   },
   created() {
@@ -42,7 +42,6 @@ export default {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  display: none;
 }
 
 .scroll-to-top-button:hover {

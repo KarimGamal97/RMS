@@ -5,12 +5,9 @@
 </template>
 
 <script>
-import ScrollTop from "./components/ScrollTop.vue";
 export default {
   data() {
-    return {
-      components: { ScrollTop },
-    };
+    return {};
   },
 };
 </script>
