@@ -1,22 +1,22 @@
 import { createRouter, createWebHistory } from "vue-router";
 // Pages
-import DashboardView from "../views/DashboardView.vue";
-import WorkView from "../views/WorkView.vue";
-import DraftView from "../views/DraftView.vue";
-import UserGuideView from "../views/UserGuideView.vue";
-import PoliciesView from "../views/PoliciesView.vue";
-import SupportView from "../views/SupportView.vue";
-import SettingsView from "../views/SettingsView.vue";
-import ReportView from "../views/ReportView.vue";
-import AddWorkView from "../views/AddWorkView.vue";
+import DashboardView from "../views/Dashboard/DashboardView.vue";
+import WorkView from "../views/Work/WorkView.vue";
+import DraftView from "../views/Draft/DraftView.vue";
+import UserGuideView from "../views/User/UserGuideView.vue";
+import PoliciesView from "../views/User/PoliciesView.vue";
+import SupportView from "../views/User/SupportView.vue";
+import SettingsView from "../views/User/SettingsView.vue";
+import ReportView from "../views/Report/ReportView.vue";
+import AddWorkView from "../views/Work/AddWorkView.vue";
 import LandingView from "../views/LandingView.vue";
-import EditWork from "../views/EditWork.vue";
-import ShowWork from "../views/ShowWork.vue";
-import FaqView from "../views/FaqView.vue";
-import ContactView from "../views/ContactView.vue";
-import LoginView from "../views/LoginView.vue";
+import EditWork from "../views/Work/WorkView.vue";
+import ShowWork from "../views/Work/ShowWork.vue";
+import FaqView from "../views/User/FaqView.vue";
+import ContactView from "../views/User/ContactView.vue";
+import LoginView from "../views/Login/LoginView.vue";
 // Admin
-import AdminView from "../views/AdminView.vue";
+import AdminView from "../views/Admin/AdminView.vue";
 import Suggestion from "../components/admin/faqs/suggestion.vue";
 import Complaint from "../components/admin/faqs/complaint.vue";
 // Layouts
@@ -131,7 +131,6 @@ const router = createRouter({
       component: Complaint,
       meta: { layouts: AdminLayout, role: "admin" },
     },
-
     {
       path: "/login",
       name: "LoginView",

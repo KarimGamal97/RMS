@@ -264,7 +264,7 @@
 <script>
 import Swal from "sweetalert2";
 import { useToast } from "vue-toastification";
-import http from "../http";
+import http from "../../http";
 export default {
   name: "my-component",
   setup() {

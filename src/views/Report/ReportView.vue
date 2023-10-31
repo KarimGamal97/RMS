@@ -83,8 +83,8 @@
 </template>
 
 <script>
-import worksComp from "../components/worksComp.vue";
-import http from "../http";
+import worksComp from "../../components/worksComp.vue";
+import http from "../../http";
 import xlsx from "xlsx/dist/xlsx.full.min";
 export default {
   name: "my-component",

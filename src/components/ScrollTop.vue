@@ -1,7 +1,9 @@
 <template>
-  <button class="scroll-to-top-button" @click="scrollToTop" v-show="showButton">
-    <font-awesome-icon icon="arrow-up" style="font-size: 150px" />
-  </button>
+  <div>
+    <button class="scroll-to-top-button" @click="scrollToTop" v-if="showButton">
+      <font-awesome-icon icon="arrow-up" />
+    </button>
+  </div>
 </template>
 
 <script>
@@ -19,7 +21,7 @@ export default {
       });
     },
     handleScroll() {
-      this.showButton = window.scrollY > 20;
+      this.showButton = window.scrollY > 200;
     },
   },
   created() {
@@ -34,13 +36,13 @@ export default {
 <style scoped>
 .scroll-to-top-button {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: 60px;
+  right: 20px;
   background-color: red;
   color: #fff;
   padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
 }
 

@@ -30,24 +30,38 @@
           id="printTable"
         >
           <template #table-row="props">
-            <span v-if="props.column.field == 'actions'">
+            <span
+              v-if="props.column.field == 'actions'"
+              style="display: flex; gap: 30px"
+            >
+              <!-- Edit Btn -->
               <b-button
                 type="button"
                 class="btn btn-warning me-2"
                 @click="editRow(props.row._id)"
-                >Edit <font-awesome-icon icon="pen-to-square"
-              /></b-button>
-              <button
-                class="btn btn-danger me-2"
-                @click="deleteRow(props.row._id, props.index)"
               >
-                Delete
-                <font-awesome-icon icon="trash" />
-              </button>
-              <button class="btn btn-info me-2" @click="showRow(props.row._id)">
-                Show
-                <font-awesome-icon icon="eye" />
-              </button>
+                <font-awesome-icon icon="pen-to-square"
+              /></b-button>
+              <!-- Delete Btn -->
+              <div class="uiverse">
+                <span class="tooltip">Delete</span>
+                <button
+                  class="btn btn-danger me-2"
+                  @click="deleteRow(props.row._id, props.index)"
+                >
+                  <font-awesome-icon icon="trash" />
+                </button>
+              </div>
+              <!-- Show More Btn -->
+              <div class="uiverse">
+                <span class="tooltip">show more</span>
+                <button
+                  class="btn btn-info me-2"
+                  @click="showRow(props.row._id)"
+                >
+                  <font-awesome-icon icon="eye" />
+                </button>
+              </div>
             </span>
             <span v-else>
               {{ props.formattedRow[props.column.field] }}
@@ -68,7 +82,7 @@
 </template>
 
 <script>
-import http from "../http";
+import http from "../../http";
 import Swal from "sweetalert2";
 export default {
   data() {
@@ -97,10 +111,6 @@ export default {
         {
           label: "Price",
           field: "price",
-        },
-        {
-          label: "Address",
-          field: "address",
         },
         {
           label: "Actions",
@@ -161,4 +171,58 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.uiverse {
+  position: relative;
+  width: 0;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tooltip {
+  position: absolute;
+  top: 0;
+  font-size: 14px;
+  background: #ffffff;
+  color: #ffffff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  width: 85px;
+  text-align: center;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  height: 8px;
+  width: 8px;
+  background: #ffffff;
+  bottom: -3px;
+  left: 50%;
+  transform: translate(-50%) rotate(45deg);
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.uiverse:hover .tooltip {
+  top: -45px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+svg:hover span,
+svg:hover .tooltip {
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
+}
+
+.uiverse:hover,
+.uiverse:hover .tooltip,
+.uiverse:hover .tooltip::before {
+  background: linear-gradient(320deg, rgb(3, 77, 146), rgb(0, 60, 255));
+  color: #ffffff;
+}
+</style>

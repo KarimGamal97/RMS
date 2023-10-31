@@ -11,7 +11,7 @@
               <p>Welcome back, your dashboard is ready !</p>
             </div>
             <div class="welcome-img">
-              <img src="../assets/imgs/welcome-img.png" alt="" />
+              <img src="../../assets/imgs/welcome-img.png" alt="" />
             </div>
           </div>
         </div>

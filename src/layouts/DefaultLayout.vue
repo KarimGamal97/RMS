@@ -36,7 +36,6 @@ import SideBar from "@/components/sidebar.vue";
 import ScrollTop from "../components/ScrollTop.vue";
 
 export default {
-  components: { ScrollTop },
   data() {
     return {
       types: ["search"],
@@ -45,6 +44,7 @@ export default {
   methods: {},
   components: {
     SideBar,
+    ScrollTop,
   },
 };
 </script>

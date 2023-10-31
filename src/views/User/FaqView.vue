@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import http from "../http";
+import http from "../../http";
 import { useToast } from "vue-toastification";
 export default {
   setup() {

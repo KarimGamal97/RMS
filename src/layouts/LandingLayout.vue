@@ -4,11 +4,15 @@
     <button>
       <router-link to="/dashboard">Dashboard</router-link>
     </button>
+    <scroll-top />
   </div>
 </template>
 
 <script>
-export default {};
+import ScrollTop from "../components/ScrollTop.vue";
+export default {
+  components: { ScrollTop },
+};
 </script>
 
 <style></style>

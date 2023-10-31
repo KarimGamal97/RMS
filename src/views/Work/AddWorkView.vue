@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import AddWorkComp from "../components/AddWorkComp.vue";
+import AddWorkComp from "../../components/AddWorkComp.vue";
 export default {
   components: {
     AddWorkComp,

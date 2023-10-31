@@ -34,6 +34,9 @@ import "vue-toastification/dist/index.css";
 import print from "vue3-print-nb";
 // Emailjs
 import emailjs from "emailjs-com";
+// Loading
+import { LoadingPlugin } from "vue-loading-overlay";
+import "vue-loading-overlay/dist/css/index.css";
 
 const app = createApp(App);
 
@@ -44,6 +47,7 @@ app.use(VueGoodLinks);
 app.use(BootstrapVue3);
 app.use(Toast);
 app.use(print);
+app.use(LoadingPlugin);
 app.use(emailjs, {
   service_id: "service_mjs3ihv",
   template_id: "template_raapfvl",
