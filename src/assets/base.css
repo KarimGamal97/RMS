@@ -316,3 +316,9 @@ footer {
   transform: translateY(0);
 }
 /* End Custom Btn */
+/* Report Tables */
+.report .vgt-table.bordered td, .report .vgt-table.bordered th {
+  border: 1px solid #DCDFE6;
+  font-size: 14px;
+  line-height: 1;
+}

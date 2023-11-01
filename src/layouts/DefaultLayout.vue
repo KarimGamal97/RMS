@@ -1,12 +1,14 @@
 <template>
-  <div class="container-fluid">
+  <div v-if="isLoading" class="loader"></div>
+
+  <div v-if="isView" class="container-fluid">
     <div class="row">
       <side-bar></side-bar>
       <div class="fixed-top-nav d-flex">
         <!-- Start Nav Options -->
         <div class="col-md-12 col-sm-12 p-2 d-flex justify-content-between">
           <div class="logo">
-            <h3>Logo</h3>
+            <img src="/img.png" style="max-width: 10%;"/>
           </div>
           <div class="fixed-nav-options">
             <button class="btn btn-danger">
@@ -28,7 +30,7 @@
       </footer>
     </div>
   </div>
-  <scroll-top></scroll-top>
+  <scroll-top v-if="isView"></scroll-top>
 </template>
 
 <script>
@@ -39,12 +41,21 @@ export default {
   data() {
     return {
       types: ["search"],
+      isLoading:true,
+      isView:false,
     };
   },
   methods: {},
   components: {
     SideBar,
     ScrollTop,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+      this.isView = true;
+
+    }, 1000);
   },
 };
 </script>

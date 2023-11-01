@@ -28,6 +28,7 @@
       <div class="card-body">
         <vue-good-table
           id="printTable"
+          class="report"
           v-if="tableAnimate"
           :columns="columns"
           :rows="computedTableData"
