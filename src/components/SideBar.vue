@@ -29,7 +29,7 @@ export default {
       },
       menuTitle: {
         type: String,
-        default: "RMS",
+        default: "BMS",
       },
       menuIcon: {
         type: String,

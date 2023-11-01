@@ -10,7 +10,7 @@ import SettingsView from "../views/User/SettingsView.vue";
 import ReportView from "../views/Report/ReportView.vue";
 import AddWorkView from "../views/Work/AddWorkView.vue";
 import LandingView from "../views/LandingView.vue";
-import EditWork from "../views/Work/WorkView.vue";
+import EditWork from "../views/Work/EditWork.vue";
 import ShowWork from "../views/Work/ShowWork.vue";
 import FaqView from "../views/User/FaqView.vue";
 import ContactView from "../views/User/ContactView.vue";

@@ -111,15 +111,15 @@
   <div class="draft container mt-5">
     <div class="card custom-card">
       <div
-        class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0"
+        class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0 bg-secondary-subtle"
       >
-        <h5 class="main-content-label tx-white my-auto tx-medium">
+        <h5 class="main-content-label text-black my-auto tx-medium">
           Drafts List
         </h5>
         <div class="card-options d-flex">
-          <b-button @click="showModal = true"
-            >Add Draft <font-awesome-icon icon="square-plus"
-          /></b-button>
+          <button @click="showModal = true" class="custom-btn">
+            Add Draft <font-awesome-icon icon="square-plus" />
+          </button>
         </div>
       </div>
       <div class="card-body">
@@ -137,18 +137,32 @@
           id="printTable"
         >
           <template #table-row="props">
-            <span v-if="props.column.field == 'actions'">
+            <span
+              v-if="props.column.field == 'actions'"
+              style="display: flex; justify-content: center; gap: 10px"
+            >
               <b-button
                 type="button"
                 class="btn btn-warning me-2"
                 @click="editRow(props.row)"
-                >Edit <font-awesome-icon icon="pen-to-square"
+                v-tippy="{
+                  content: 'Edit',
+                  arrow: true,
+                  interactive: true,
+                  trigger: 'mouseenter',
+                }"
+                ><font-awesome-icon icon="pen-to-square"
               /></b-button>
               <button
                 class="btn btn-danger me-2"
                 @click="deleteRow(props.row._id, props.index)"
+                v-tippy="{
+                  content: 'Delete',
+                  arrow: true,
+                  interactive: true,
+                  trigger: 'mouseenter',
+                }"
               >
-                Delete
                 <font-awesome-icon icon="trash" />
               </button>
             </span>

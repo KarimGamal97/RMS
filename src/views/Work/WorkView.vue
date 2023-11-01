@@ -2,17 +2,16 @@
   <div class="work mt-3">
     <div class="card custom-card">
       <div
-        class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0"
-        style="background-color: #95a5a6"
+        class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0 bg-secondary-subtle"
       >
-        <h5 class="main-content-label tx-white my-auto tx-medium">
+        <h5 class="main-content-label text-black my-auto tx-medium">
           Works List
         </h5>
         <div class="card-options d-flex">
-          <b-button @click="openLink">
-            Add
-            <font-awesome-icon icon="square-plus"
-          /></b-button>
+          <button @click="openLink" class="custom-btn">
+            Add Work
+            <font-awesome-icon icon="square-plus" />
+          </button>
         </div>
       </div>
       <div class="card-body">
@@ -32,36 +31,48 @@
           <template #table-row="props">
             <span
               v-if="props.column.field == 'actions'"
-              style="display: flex; gap: 30px"
+              style="display: flex; justify-content: center; gap: 10px"
             >
               <!-- Edit Btn -->
               <b-button
                 type="button"
                 class="btn btn-warning me-2"
                 @click="editRow(props.row._id)"
+                v-tippy="{
+                  content: 'Edit',
+                  arrow: true,
+                  interactive: true,
+                  trigger: 'mouseenter',
+                }"
               >
                 <font-awesome-icon icon="pen-to-square"
               /></b-button>
               <!-- Delete Btn -->
-              <div class="uiverse">
-                <span class="tooltip">Delete</span>
-                <button
-                  class="btn btn-danger me-2"
-                  @click="deleteRow(props.row._id, props.index)"
-                >
-                  <font-awesome-icon icon="trash" />
-                </button>
-              </div>
+              <button
+                class="btn btn-danger me-2"
+                @click="deleteRow(props.row._id, props.index)"
+                v-tippy="{
+                  content: 'Delete',
+                  arrow: true,
+                  interactive: true,
+                  trigger: 'mouseenter',
+                }"
+              >
+                <font-awesome-icon icon="trash" />
+              </button>
               <!-- Show More Btn -->
-              <div class="uiverse">
-                <span class="tooltip">show more</span>
-                <button
-                  class="btn btn-info me-2"
-                  @click="showRow(props.row._id)"
-                >
-                  <font-awesome-icon icon="eye" />
-                </button>
-              </div>
+              <button
+                class="btn btn-info me-2"
+                @click="showRow(props.row._id)"
+                v-tippy="{
+                  content: 'More..',
+                  arrow: true,
+                  interactive: true,
+                  trigger: 'mouseenter',
+                }"
+              >
+                <font-awesome-icon icon="eye" />
+              </button>
             </span>
             <span v-else>
               {{ props.formattedRow[props.column.field] }}
@@ -172,57 +183,9 @@ export default {
 </script>
 
 <style scoped>
-.uiverse {
-  position: relative;
-  width: 0;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.tooltip {
-  position: absolute;
-  top: 0;
-  font-size: 14px;
-  background: #ffffff;
-  color: #ffffff;
-  padding: 5px 8px;
-  border-radius: 5px;
-  width: 85px;
-  text-align: center;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.tooltip::before {
-  position: absolute;
-  content: "";
-  height: 8px;
-  width: 8px;
-  background: #ffffff;
-  bottom: -3px;
-  left: 50%;
-  transform: translate(-50%) rotate(45deg);
-  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-.uiverse:hover .tooltip {
-  top: -45px;
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-svg:hover span,
-svg:hover .tooltip {
-  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.1);
-}
-
-.uiverse:hover,
-.uiverse:hover .tooltip,
-.uiverse:hover .tooltip::before {
-  background: linear-gradient(320deg, rgb(3, 77, 146), rgb(0, 60, 255));
-  color: #ffffff;
+.custom-theme {
+  background-color: #ffcc00; /* Replace with your desired background color */
+  color: #000; /* Specify the text color */
+  /* Add any other custom styles you want */
 }
 </style>

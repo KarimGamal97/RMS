@@ -272,3 +272,47 @@ footer {
 }
 
 /* End Loaders */
+
+/* Start Custom Btn */
+.custom-btn {
+  appearance: none;
+  background-color: transparent;
+  border: 0.125em solid #1a1a1a;
+  border-radius: 0.9375em;
+  box-sizing: border-box;
+  color: #3b3b3b;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 3.75em;
+  min-width: 0;
+  outline: none;
+  padding: 0.5em 1.3em;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  will-change: transform;
+}
+
+.custom-btn:disabled {
+  pointer-events: none;
+}
+
+.custom-btn:hover {
+  color: #fff;
+  background-color: #1a1a1a;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.custom-btn:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+/* End Custom Btn */

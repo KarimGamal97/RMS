@@ -37,6 +37,9 @@ import emailjs from "emailjs-com";
 // Loading
 import { LoadingPlugin } from "vue-loading-overlay";
 import "vue-loading-overlay/dist/css/index.css";
+// Tooltip
+import VueTippy from "vue-tippy";
+import "tippy.js/dist/tippy.css";
 
 const app = createApp(App);
 
@@ -47,6 +50,7 @@ app.use(VueGoodLinks);
 app.use(BootstrapVue3);
 app.use(Toast);
 app.use(print);
+app.use(VueTippy);
 app.use(LoadingPlugin);
 app.use(emailjs, {
   service_id: "service_mjs3ihv",

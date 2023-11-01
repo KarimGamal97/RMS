@@ -21,7 +21,7 @@
       <footer class="footer-head">
         <div class="footer text-center">
           <p>
-            Copy Rights &copy; {{ new Date().getFullYear() }} - RMS Powered By
+            Copy Rights &copy; {{ new Date().getFullYear() }} - BMS Powered By
             <a href="#" target="_blank" id="BugOff">BugOff</a>
           </p>
         </div>
