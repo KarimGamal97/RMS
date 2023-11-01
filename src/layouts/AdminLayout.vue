@@ -1,6 +1,6 @@
 <template>
-  <span class="loader"></span>
-  <div class="container-fluid" v-if="hide">
+  <span v-if="isLoading" class="loader"></span>
+  <div class="container-fluid" v-if="isView">
     <div class="row">
       <side-bar></side-bar>
       <div class="fixed-top-nav d-flex">
@@ -38,12 +38,21 @@ export default {
   data() {
     return {
       types: ["search"],
-      hide: false,
+      
+      isLoading:true,
+      isView:false,
     };
   },
   methods: {},
   components: {
     SideBar,
+  },
+  mounted() {
+    setTimeout(() => {
+      this.isLoading = false;
+      this.isView = true;
+
+    }, 1000);
   },
 };
 </script>
