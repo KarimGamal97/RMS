@@ -30,7 +30,7 @@
       </footer>
     </div>
   </div>
-  <scroll-top v-if="isView"></scroll-top>
+  <scroll-top></scroll-top>
 </template>
 
 <script>
