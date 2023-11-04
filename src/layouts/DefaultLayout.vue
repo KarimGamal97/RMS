@@ -1,14 +1,19 @@
 <template>
   <div v-if="isLoading" class="loader"></div>
-
   <div v-if="isView" class="container-fluid">
     <div class="row">
       <side-bar></side-bar>
       <div class="fixed-top-nav d-flex">
         <!-- Start Nav Options -->
-        <div class="col-md-12 col-sm-12 p-2 d-flex justify-content-between">
+        <div
+          class="col-md-12 col-sm-12 p-2 d-flex justify-content-between"
+          style="background-color: #fff"
+        >
           <div class="logo">
-            <img src="/img.png" style="max-width: 10%;"/>
+            <img
+              src="../assets/imgs/main-logo.jpg"
+              style="max-width: 15%; mix-blend-mode: multiply"
+            />
           </div>
           <div class="fixed-nav-options">
             <button class="btn btn-danger">
@@ -41,8 +46,8 @@ export default {
   data() {
     return {
       types: ["search"],
-      isLoading:true,
-      isView:false,
+      isLoading: true,
+      isView: false,
     };
   },
   methods: {},
@@ -54,7 +59,6 @@ export default {
     setTimeout(() => {
       this.isLoading = false;
       this.isView = true;
-
     }, 1000);
   },
 };
