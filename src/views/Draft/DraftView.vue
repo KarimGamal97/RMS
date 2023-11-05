@@ -347,6 +347,7 @@ export default {
       updatePriceErrorMsg: "",
       tableAnimate: false,
       tableSkelton: true,
+      limit : 40,
     };
   },
   computed: {
@@ -393,6 +394,7 @@ export default {
       return false;
     },
   },
+ 
   watch: {
     "formData.name"(v) {
       if (v.length < 3 || v.length > 15) {
@@ -479,6 +481,8 @@ export default {
         this.typeErrorMsg = "";
       }
     },
+  
+
   },
   methods: {
     resetModal() {
@@ -498,7 +502,7 @@ export default {
     },
     async getData() {
       await http
-        .get(`drafts?limit=100000000000000000000000000000000000000`)
+        .get(`drafts?limit=${this.limit}`)
         .then((res) => {
           this.rows = res.data.data;
           this.tableSkelton = false;
