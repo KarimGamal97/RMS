@@ -1,4 +1,5 @@
 <template>
+  <ProgressBar />
   <span v-if="isLoading" class="loader"></span>
   <div class="container-fluid" v-if="isView">
     <div class="row">
@@ -33,6 +34,7 @@
 
 <script>
 import SideBar from "@/components/admin/sidebar/sidebar.vue";
+import ProgressBar from '../helpers/ProgressBar.vue';
 
 export default {
   data() {
@@ -46,6 +48,7 @@ export default {
   methods: {},
   components: {
     SideBar,
+    ProgressBar
   },
   mounted() {
     setTimeout(() => {
