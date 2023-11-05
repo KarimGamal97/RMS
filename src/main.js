@@ -40,6 +40,7 @@ import "vue-loading-overlay/dist/css/index.css";
 // Tooltip
 import VueTippy from "vue-tippy";
 import "tippy.js/dist/tippy.css";
+// Loader
 
 const app = createApp(App);
 

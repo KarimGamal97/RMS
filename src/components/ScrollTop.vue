@@ -21,7 +21,7 @@ export default {
       });
     },
     handleScroll() {
-      this.showButton = window.scrollY > 200;
+      this.showButton = window.scrollY > 50;
     },
   },
   created() {

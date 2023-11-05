@@ -30,6 +30,7 @@
     "vue-axios": "^3.5.2",
     "vue-good-links": "^0.0.3",
     "vue-good-table-next": "^0.2.1",
+    "vue-loaders": "^4.1.4",
     "vue-loading-overlay": "6.0",
     "vue-multiselect": "^2.1.7",
     "vue-router": "^4.2.4",

@@ -54,6 +54,7 @@ export default {
   components: {
     SideBar,
     ScrollTop,
+    LoaderComp,
   },
   mounted() {
     setTimeout(() => {
