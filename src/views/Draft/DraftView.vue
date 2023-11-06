@@ -108,7 +108,7 @@
       </form>
     </b-modal>
   </teleport>
-  <div class="draft container mt-5">
+  <div class="draft container mt-3">
     <div class="card custom-card">
       <div
         class="card-header p-3 tx-medium my-auto tx-white custom-card-header border-bottom-0 bg-secondary-subtle"
@@ -347,7 +347,7 @@ export default {
       updatePriceErrorMsg: "",
       tableAnimate: false,
       tableSkelton: true,
-      limit : 40,
+      limit: 40,
     };
   },
   computed: {
@@ -394,7 +394,7 @@ export default {
       return false;
     },
   },
- 
+
   watch: {
     "formData.name"(v) {
       if (v.length < 3 || v.length > 15) {
@@ -481,8 +481,6 @@ export default {
         this.typeErrorMsg = "";
       }
     },
-  
-
   },
   methods: {
     resetModal() {
@@ -501,13 +499,11 @@ export default {
       }
     },
     async getData() {
-      await http
-        .get(`drafts?limit=${this.limit}`)
-        .then((res) => {
-          this.rows = res.data.data;
-          this.tableSkelton = false;
-          this.tableAnimate = true;
-        });
+      await http.get(`drafts?limit=${this.limit}`).then((res) => {
+        this.rows = res.data.data;
+        this.tableSkelton = false;
+        this.tableAnimate = true;
+      });
     },
     async getType() {
       await http.get("types").then((res) => {

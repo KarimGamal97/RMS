@@ -1,11 +1,15 @@
 <template>
   <div>
     <h1>Support</h1>
+    <chat-bot />
   </div>
 </template>
 
 <script>
-export default {};
+import ChatBot from "../../components/ChatBot.vue";
+export default {
+  components: { ChatBot },
+};
 </script>
 
 <style></style>

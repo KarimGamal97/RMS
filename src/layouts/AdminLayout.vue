@@ -30,31 +30,33 @@
       </footer>
     </div>
   </div>
+  <scroll-top></scroll-top>
 </template>
 
 <script>
 import SideBar from "@/components/admin/sidebar/sidebar.vue";
-import ProgressBar from '../helpers/ProgressBar.vue';
+import ProgressBar from "../helpers/ProgressBar.vue";
+import ScrollTop from "../components/ScrollTop.vue";
 
 export default {
   data() {
     return {
       types: ["search"],
-      
-      isLoading:true,
-      isView:false,
+
+      isLoading: true,
+      isView: false,
     };
   },
   methods: {},
   components: {
     SideBar,
-    ProgressBar
+    ProgressBar,
+    ScrollTop,
   },
   mounted() {
     setTimeout(() => {
       this.isLoading = false;
       this.isView = true;
-
     }, 1000);
   },
 };
